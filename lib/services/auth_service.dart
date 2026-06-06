@@ -10,6 +10,8 @@ class AuthService {
 
   Stream<User?> get user => _auth.authStateChanges();
 
+  User? get currentFirebaseUser => _auth.currentUser;
+
   Future<UserModel?> signInWithEmail(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(

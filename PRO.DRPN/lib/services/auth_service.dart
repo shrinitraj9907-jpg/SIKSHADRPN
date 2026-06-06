@@ -33,6 +33,8 @@ class AuthService {
   // ---------------------------------------------------------------------------
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
+  User? get currentFirebaseUser => _auth.currentUser;
+
   // ---------------------------------------------------------------------------
   // CORE: Google Sign-In with category-level enforcement.
   //
