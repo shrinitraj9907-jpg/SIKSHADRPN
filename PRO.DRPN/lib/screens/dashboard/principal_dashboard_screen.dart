@@ -64,21 +64,23 @@ class PrincipalDashboardScreen extends StatelessWidget {
       children: [
         _buildStatCard('Students', '840', Icons.groups, Colors.blue),
         const SizedBox(width: 12),
-        _buildStatCard('Present Today', '92%', Icons.check_circle, Colors.green),
+        _buildStatCard(
+            'Present Today', '92%', Icons.check_circle, Colors.green),
         const SizedBox(width: 12),
         _buildStatCard('Issues', '2', Icons.warning, Colors.red),
       ],
     );
   }
 
-  Widget _buildStatCard(String title, String value, IconData icon, Color color) {
+  Widget _buildStatCard(
+      String title, String value, IconData icon, Color color) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: color.withOpacity(0.3)),
+          border: Border.all(color: color.withValues(alpha: 0.3)),
         ),
         child: Column(
           children: [
@@ -86,7 +88,8 @@ class PrincipalDashboardScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               value,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color),
+              style: TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.bold, color: color),
             ),
             const SizedBox(height: 4),
             Text(
@@ -103,8 +106,16 @@ class PrincipalDashboardScreen extends StatelessWidget {
   Widget _buildComplaintQueue() {
     // Mock active complaints that are ticking down before escalation
     final complaints = [
-      {'title': 'No Water in Girls Toilet', 'timeLeft': '48h 12m', 'color': Colors.orange},
-      {'title': 'Mid-Day Meal Delayed', 'timeLeft': '05h 30m', 'color': Colors.red},
+      {
+        'title': 'No Water in Girls Toilet',
+        'timeLeft': '48h 12m',
+        'color': Colors.orange
+      },
+      {
+        'title': 'Mid-Day Meal Delayed',
+        'timeLeft': '05h 30m',
+        'color': Colors.red
+      },
     ];
 
     return ListView.builder(
@@ -120,10 +131,11 @@ class PrincipalDashboardScreen extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 12),
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: (c['color'] as Color).withOpacity(0.2),
+              backgroundColor: (c['color'] as Color).withValues(alpha: 0.2),
               child: Icon(Icons.timer, color: c['color'] as Color),
             ),
-            title: Text(c['title'] as String, style: const TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(c['title'] as String,
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             subtitle: Text(
               'Escalates in: ${c['timeLeft']}',
               style: TextStyle(
@@ -147,9 +159,24 @@ class PrincipalDashboardScreen extends StatelessWidget {
 
   Widget _buildTeacherAttendance() {
     final teachers = [
-      {'name': 'Ramesh Kumar (Math)', 'status': 'Present (GPS Verified)', 'icon': Icons.location_on, 'color': Colors.green},
-      {'name': 'Sunita Sharma (Science)', 'status': 'Present (GPS Verified)', 'icon': Icons.location_on, 'color': Colors.green},
-      {'name': 'Anil Desai (English)', 'status': 'Absent', 'icon': Icons.cancel, 'color': Colors.red},
+      {
+        'name': 'Ramesh Kumar (Math)',
+        'status': 'Present (GPS Verified)',
+        'icon': Icons.location_on,
+        'color': Colors.green
+      },
+      {
+        'name': 'Sunita Sharma (Science)',
+        'status': 'Present (GPS Verified)',
+        'icon': Icons.location_on,
+        'color': Colors.green
+      },
+      {
+        'name': 'Anil Desai (English)',
+        'status': 'Absent',
+        'icon': Icons.cancel,
+        'color': Colors.red
+      },
     ];
 
     return ListView.builder(

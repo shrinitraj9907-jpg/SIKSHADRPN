@@ -53,7 +53,10 @@ class ParakhAssessmentScreen extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   'NIPUN Bharat Mission',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.amber[900]),
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.amber[900]),
                 ),
               ],
             ),
@@ -89,11 +92,11 @@ class ParakhAssessmentScreen extends StatelessWidget {
                 value: percentage / 100,
                 strokeWidth: 8,
                 color: color,
-                backgroundColor: color.withOpacity(0.2),
+                backgroundColor: color.withValues(alpha: 0.2),
               ),
             ),
             Text(
-              '${percentage}%',
+              '$percentage%',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ],
@@ -122,16 +125,29 @@ class ParakhAssessmentScreen extends StatelessWidget {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (double value, TitleMeta meta) {
-                      const style = TextStyle(fontWeight: FontWeight.bold, fontSize: 12);
+                      const style =
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 12);
                       String text;
                       switch (value.toInt()) {
-                        case 0: text = 'Class 3'; break;
-                        case 1: text = 'Class 5'; break;
-                        case 2: text = 'Class 8'; break;
-                        case 3: text = 'Class 10'; break;
-                        default: text = ''; break;
+                        case 0:
+                          text = 'Class 3';
+                          break;
+                        case 1:
+                          text = 'Class 5';
+                          break;
+                        case 2:
+                          text = 'Class 8';
+                          break;
+                        case 3:
+                          text = 'Class 10';
+                          break;
+                        default:
+                          text = '';
+                          break;
                       }
-                      return Padding(padding: const EdgeInsets.only(top: 8.0), child: Text(text, style: style));
+                      return Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(text, style: style));
                     },
                     reservedSize: 30,
                   ),
@@ -141,24 +157,52 @@ class ParakhAssessmentScreen extends StatelessWidget {
                     showTitles: true,
                     reservedSize: 40,
                     getTitlesWidget: (value, meta) {
-                      return Text('${value.toInt()}%', style: const TextStyle(fontSize: 12, color: Colors.grey));
+                      return Text('${value.toInt()}%',
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.grey));
                     },
                   ),
                 ),
-                topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                topTitles:
+                    const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                rightTitles:
+                    const AxisTitles(sideTitles: SideTitles(showTitles: false)),
               ),
-              gridData: FlGridData(
+              gridData: const FlGridData(
                 show: true,
                 drawVerticalLine: false,
                 horizontalInterval: 20,
               ),
               borderData: FlBorderData(show: false),
               barGroups: [
-                BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: 72, color: Colors.teal, width: 20, borderRadius: BorderRadius.circular(4))]),
-                BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: 65, color: Colors.blue, width: 20, borderRadius: BorderRadius.circular(4))]),
-                BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: 54, color: Colors.orange, width: 20, borderRadius: BorderRadius.circular(4))]),
-                BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: 48, color: Colors.red, width: 20, borderRadius: BorderRadius.circular(4))]),
+                BarChartGroupData(x: 0, barRods: [
+                  BarChartRodData(
+                      toY: 72,
+                      color: Colors.teal,
+                      width: 20,
+                      borderRadius: BorderRadius.circular(4))
+                ]),
+                BarChartGroupData(x: 1, barRods: [
+                  BarChartRodData(
+                      toY: 65,
+                      color: Colors.blue,
+                      width: 20,
+                      borderRadius: BorderRadius.circular(4))
+                ]),
+                BarChartGroupData(x: 2, barRods: [
+                  BarChartRodData(
+                      toY: 54,
+                      color: Colors.orange,
+                      width: 20,
+                      borderRadius: BorderRadius.circular(4))
+                ]),
+                BarChartGroupData(x: 3, barRods: [
+                  BarChartRodData(
+                      toY: 48,
+                      color: Colors.red,
+                      width: 20,
+                      borderRadius: BorderRadius.circular(4))
+                ]),
               ],
             ),
           ),

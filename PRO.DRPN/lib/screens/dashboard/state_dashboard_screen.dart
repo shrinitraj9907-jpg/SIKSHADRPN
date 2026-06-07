@@ -66,10 +66,10 @@ class StateDashboardScreen extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 30,
             backgroundColor: Colors.deepPurple,
-            child: const Icon(Icons.account_balance, size: 30, color: Colors.white),
+            child: Icon(Icons.account_balance, size: 30, color: Colors.white),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -78,7 +78,8 @@ class StateDashboardScreen extends StatelessWidget {
               children: [
                 Text(
                   'Welcome, $userName',
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   '$userRole | Govt. of $stateName',
@@ -103,7 +104,10 @@ class StateDashboardScreen extends StatelessWidget {
           children: [
             const Text(
               'State PGI Score (Overall)',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey),
             ),
             const SizedBox(height: 8),
             Row(
@@ -111,17 +115,22 @@ class StateDashboardScreen extends StatelessWidget {
               children: [
                 const Text(
                   '820 / 1000',
-                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                  style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     color: Colors.green[100],
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     'Grade: Uttam',
-                    style: TextStyle(color: Colors.green[800], fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.green[800], fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -151,7 +160,8 @@ class StateDashboardScreen extends StatelessWidget {
   Widget _buildMiniStat(String label, String value) {
     return Column(
       children: [
-        Text(value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        Text(value,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
         Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12)),
       ],
     );
@@ -166,7 +176,7 @@ class StateDashboardScreen extends StatelessWidget {
         final districts = ['Pune', 'Mumbai', 'Nagpur', 'Nashik'];
         final grades = ['Ati-Uttam', 'Utkarsh', 'Uttam', 'Prachesta-1'];
         final scores = [860, 910, 815, 780];
-        
+
         return Card(
           margin: const EdgeInsets.only(bottom: 12),
           child: ListTile(
@@ -174,7 +184,8 @@ class StateDashboardScreen extends StatelessWidget {
               backgroundColor: Colors.deepPurple[100],
               child: Text('${index + 1}'),
             ),
-            title: Text(districts[index], style: const TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(districts[index],
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             subtitle: Text('Score: ${scores[index]} | Grade: ${grades[index]}'),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
@@ -189,7 +200,11 @@ class StateDashboardScreen extends StatelessWidget {
   Widget _buildEscalationAction(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => const EscalationDashboardScreen(userLevel: 'State (DPI)')));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) =>
+                    const EscalationDashboardScreen(userLevel: 'State (DPI)')));
       },
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -206,8 +221,13 @@ class StateDashboardScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Escalation Inbox', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red[900])),
-                  const Text('Review unresolved district-level complaints.', style: TextStyle(color: Colors.grey)),
+                  Text('Escalation Inbox',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red[900])),
+                  const Text('Review unresolved district-level complaints.',
+                      style: TextStyle(color: Colors.grey)),
                 ],
               ),
             ),

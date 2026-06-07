@@ -10,10 +10,10 @@ import 'package:shiksha_darpan/screens/dashboard/principal_dashboard_screen.dart
 // ─────────────────────────────────────────────────────────────────────────────
 // Palette constants
 // ─────────────────────────────────────────────────────────────────────────────
-const _bgDeep  = Color(0xFF060B24);
-const _bgMid   = Color(0xFF0C1440);
+const _bgDeep = Color(0xFF060B24);
+const _bgMid = Color(0xFF0C1440);
 const _bgLight = Color(0xFF132060);
-const _accent  = Color(0xFF4FC3F7);
+const _accent = Color(0xFF4FC3F7);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Per-category visual metadata
@@ -25,8 +25,10 @@ class _PortalMeta {
   final IconData icon;
   final List<Color> gradient;
   final Color glow;
+
   /// Pre-baked glow with 35 % opacity for the card box-shadow.
   final Color shadowColor;
+
   /// Pre-baked glow with 14 % opacity for the icon chip background.
   final Color chipColor;
 
@@ -51,7 +53,7 @@ const _portals = <_PortalMeta>[
     gradient: [Color(0xFF1B5E20), Color(0xFF388E3C)],
     glow: Color(0xFF66BB6A),
     shadowColor: Color(0x5966BB6A), // 35 % opacity
-    chipColor:   Color(0x2466BB6A), // 14 % opacity
+    chipColor: Color(0x2466BB6A), // 14 % opacity
   ),
   _PortalMeta(
     level: AdministrativeLevel.intermediate,
@@ -61,7 +63,7 @@ const _portals = <_PortalMeta>[
     gradient: [Color(0xFFBF360C), Color(0xFFE64A19)],
     glow: Color(0xFFFF7043),
     shadowColor: Color(0x59FF7043),
-    chipColor:   Color(0x24FF7043),
+    chipColor: Color(0x24FF7043),
   ),
   _PortalMeta(
     level: AdministrativeLevel.state,
@@ -71,7 +73,7 @@ const _portals = <_PortalMeta>[
     gradient: [Color(0xFF4A148C), Color(0xFF7B1FA2)],
     glow: Color(0xFFCE93D8),
     shadowColor: Color(0x59CE93D8),
-    chipColor:   Color(0x24CE93D8),
+    chipColor: Color(0x24CE93D8),
   ),
   _PortalMeta(
     level: AdministrativeLevel.national,
@@ -81,7 +83,7 @@ const _portals = <_PortalMeta>[
     gradient: [Color(0xFF0D47A1), Color(0xFF1976D2)],
     glow: Color(0xFF64B5F6),
     shadowColor: Color(0x5964B5F6),
-    chipColor:   Color(0x2464B5F6),
+    chipColor: Color(0x2464B5F6),
   ),
 ];
 
@@ -183,8 +185,7 @@ class _LoginScreenState extends State<LoginScreen>
     } catch (e) {
       _showDialog(
         title: 'Authentication Error',
-        message:
-            'Something went wrong. Please try again.\n\n'
+        message: 'Something went wrong. Please try again.\n\n'
             '${e.toString().replaceFirst('Exception: ', '')}',
       );
     } finally {
@@ -202,8 +203,7 @@ class _LoginScreenState extends State<LoginScreen>
       context: context,
       builder: (_) => AlertDialog(
         backgroundColor: const Color(0xFF131A3E),
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Row(children: [
           Icon(icon, color: iconColor, size: 26),
           const SizedBox(width: 10),
@@ -225,9 +225,7 @@ class _LoginScreenState extends State<LoginScreen>
             onPressed: () => Navigator.pop(context),
             child: const Text('Understood',
                 style: TextStyle(
-                    color: _accent,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15)),
+                    color: _accent, fontWeight: FontWeight.bold, fontSize: 15)),
           )
         ],
       ),
@@ -252,9 +250,10 @@ class _LoginScreenState extends State<LoginScreen>
         ),
 
         // Decorative blobs
-        _blob(top: -90,  right: -90, size: 240, color: const Color(0x2E1565C0)),
-        _blob(bottom: -110, left: -70, size: 280, color: const Color(0x124CAF50)),
-        _blob(top: 250,  left: -50,  size: 160, color: const Color(0x0FFF9800)),
+        _blob(top: -90, right: -90, size: 240, color: const Color(0x2E1565C0)),
+        _blob(
+            bottom: -110, left: -70, size: 280, color: const Color(0x124CAF50)),
+        _blob(top: 250, left: -50, size: 160, color: const Color(0x0FFF9800)),
 
         // Scrollable content
         SafeArea(
@@ -286,18 +285,14 @@ class _LoginScreenState extends State<LoginScreen>
             color: const Color(0xA6000000), // ~65% opacity black
             child: Center(
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 36, vertical: 28),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 36, vertical: 28),
                 decoration: BoxDecoration(
                   color: const Color(0xFF131A3E),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                      color: const Color(0x144FFFFF),
-                      width: 1),
+                  border: Border.all(color: const Color(0x144FFFFF), width: 1),
                   boxShadow: const [
-                    BoxShadow(
-                        color: Color(0x264FC3F7),
-                        blurRadius: 30)
+                    BoxShadow(color: Color(0x264FC3F7), blurRadius: 30)
                   ],
                 ),
                 child: const Column(
@@ -312,8 +307,7 @@ class _LoginScreenState extends State<LoginScreen>
                     SizedBox(height: 18),
                     Text(
                       'Verifying your credentials…',
-                      style: TextStyle(
-                          color: Color(0xBFFFFFFF), fontSize: 14),
+                      style: TextStyle(color: Color(0xBFFFFFFF), fontSize: 14),
                     ),
                   ],
                 ),
@@ -327,13 +321,21 @@ class _LoginScreenState extends State<LoginScreen>
   // ── Helper widgets ─────────────────────────────────────────────────────────
 
   Widget _blob({
-    double? top, double? bottom, double? left, double? right,
-    required double size, required Color color,
+    double? top,
+    double? bottom,
+    double? left,
+    double? right,
+    required double size,
+    required Color color,
   }) {
     return Positioned(
-      top: top, bottom: bottom, left: left, right: right,
+      top: top,
+      bottom: bottom,
+      left: left,
+      right: right,
       child: Container(
-        width: size, height: size,
+        width: size,
+        height: size,
         decoration: BoxDecoration(shape: BoxShape.circle, color: color),
       ),
     );
@@ -345,12 +347,12 @@ class _LoginScreenState extends State<LoginScreen>
       Container(
         width: 88,
         height: 88,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          gradient: const LinearGradient(
+          gradient: LinearGradient(
             colors: [Color(0xFF1565C0), Color(0xFF0D47A1)],
           ),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               color: Color.fromRGBO(21, 101, 192, 0.45),
               blurRadius: 28,
@@ -375,9 +377,7 @@ class _LoginScreenState extends State<LoginScreen>
       const Text(
         'National Education Monitoring System',
         style: TextStyle(
-            fontSize: 13,
-            color: Color(0x8CFFFFFF),
-            letterSpacing: 0.4),
+            fontSize: 13, color: Color(0x8CFFFFFF), letterSpacing: 0.4),
         textAlign: TextAlign.center,
       ),
       const SizedBox(height: 12),
@@ -397,8 +397,8 @@ class _LoginScreenState extends State<LoginScreen>
         width: 44,
         height: 3,
         margin: const EdgeInsets.symmetric(horizontal: 1),
-        decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(2)),
+        decoration:
+            BoxDecoration(color: color, borderRadius: BorderRadius.circular(2)),
       );
 
   Widget _buildSectionLabel() {
@@ -456,9 +456,7 @@ class _LoginScreenState extends State<LoginScreen>
             color: canPress ? null : const Color(0x12FFFFFF),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: canPress
-                  ? Colors.transparent
-                  : const Color(0x21FFFFFF),
+              color: canPress ? Colors.transparent : const Color(0x21FFFFFF),
             ),
             boxShadow: canPress
                 ? const [
@@ -495,9 +493,7 @@ class _LoginScreenState extends State<LoginScreen>
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: canPress
-                      ? Colors.white
-                      : const Color(0x59FFFFFF),
+                  color: canPress ? Colors.white : const Color(0x59FFFFFF),
                   letterSpacing: 0.3,
                 ),
               ),
@@ -537,9 +533,7 @@ class _LoginScreenState extends State<LoginScreen>
             'in Firestore. Cross-category login is strictly blocked — a '
             'Teacher account cannot access the District, State, or National portals.',
             style: TextStyle(
-                fontSize: 11.5,
-                color: Color(0x61FFFFFF),
-                height: 1.55),
+                fontSize: 11.5, color: Color(0x61FFFFFF), height: 1.55),
           ),
         ],
       ),
@@ -579,9 +573,7 @@ class _PortalCard extends StatelessWidget {
           color: isSelected ? null : const Color(0x0DFFFFFF),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected
-                ? meta.glow
-                : const Color(0x1CFFFFFF),
+            color: isSelected ? meta.glow : const Color(0x1CFFFFFF),
             width: isSelected ? 2 : 1,
           ),
           boxShadow: isSelected
@@ -604,14 +596,12 @@ class _PortalCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: isSelected
-                        ? const Color(0x33FFFFFF)
-                        : meta.chipColor,
+                    color:
+                        isSelected ? const Color(0x33FFFFFF) : meta.chipColor,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(meta.icon,
-                      color: isSelected ? Colors.white : meta.glow,
-                      size: 20),
+                      color: isSelected ? Colors.white : meta.glow, size: 20),
                 ),
                 const Spacer(),
                 // Check indicator
@@ -622,8 +612,7 @@ class _PortalCard extends StatelessWidget {
                           key: const ValueKey('check'),
                           padding: const EdgeInsets.all(3),
                           decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle),
+                              color: Colors.white, shape: BoxShape.circle),
                           child: Icon(Icons.check,
                               size: 11, color: meta.gradient.first),
                         )
@@ -636,9 +625,7 @@ class _PortalCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 13.5,
                   fontWeight: FontWeight.bold,
-                  color: isSelected
-                      ? Colors.white
-                      : const Color(0xE0FFFFFF),
+                  color: isSelected ? Colors.white : const Color(0xE0FFFFFF),
                 ),
               ),
               const SizedBox(height: 5),

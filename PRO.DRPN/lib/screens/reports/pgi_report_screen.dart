@@ -25,14 +25,16 @@ class PgiReportScreen extends StatelessWidget {
           const SizedBox(height: 24),
           _buildDomainCard('Learning Outcomes', 140, 180, Colors.blue),
           _buildDomainCard('Access & Equity', 260, 310, Colors.orange),
-          _buildDomainCard('Infrastructure & Facilities', 130, 150, Colors.purple),
+          _buildDomainCard(
+              'Infrastructure & Facilities', 130, 150, Colors.purple),
           _buildDomainCard('Governance Processes', 290, 360, Colors.teal),
         ],
       ),
     );
   }
 
-  Widget _buildDomainCard(String title, double score, double maxScore, Color color) {
+  Widget _buildDomainCard(
+      String title, double score, double maxScore, Color color) {
     final double percentage = score / maxScore;
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -46,7 +48,8 @@ class PgiReportScreen extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   '${score.toInt()} / ${maxScore.toInt()}',
@@ -57,7 +60,7 @@ class PgiReportScreen extends StatelessWidget {
             const SizedBox(height: 12),
             LinearProgressIndicator(
               value: percentage,
-              backgroundColor: color.withOpacity(0.2),
+              backgroundColor: color.withValues(alpha: 0.2),
               color: color,
               minHeight: 8,
             ),

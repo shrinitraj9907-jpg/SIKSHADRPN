@@ -90,7 +90,8 @@ class NationalDashboardScreen extends StatelessWidget {
               children: [
                 Text(
                   userName,
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   userRole,
@@ -107,9 +108,11 @@ class NationalDashboardScreen extends StatelessWidget {
   Widget _buildKeyMetricsRow() {
     return Row(
       children: [
-        Expanded(child: _buildMetricCard('Total Schools', '1.5M', Icons.school)),
+        Expanded(
+            child: _buildMetricCard('Total Schools', '1.5M', Icons.school)),
         const SizedBox(width: 16),
-        Expanded(child: _buildMetricCard('Total Students', '260M', Icons.groups)),
+        Expanded(
+            child: _buildMetricCard('Total Students', '260M', Icons.groups)),
       ],
     );
   }
@@ -123,7 +126,9 @@ class NationalDashboardScreen extends StatelessWidget {
           children: [
             Icon(icon, size: 40, color: Colors.indigo[600]),
             const SizedBox(height: 12),
-            Text(value, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(value,
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
             Text(title, style: const TextStyle(color: Colors.grey)),
           ],
@@ -155,7 +160,8 @@ class NationalDashboardScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            const Text('Total Allocation: ₹ 45,000 Cr', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const Text('Total Allocation: ₹ 45,000 Cr',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 16),
             SizedBox(
               height: 200,
@@ -172,7 +178,8 @@ class NationalDashboardScreen extends StatelessWidget {
                           value: 38500,
                           title: '85.5%',
                           radius: 40,
-                          titleStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                          titleStyle: const TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                         PieChartSectionData(
                           color: Colors.grey[300]!,
@@ -219,19 +226,19 @@ class NationalDashboardScreen extends StatelessWidget {
               urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
               userAgentPackageName: 'com.example.shikshadarpan',
             ),
-            MarkerLayer(
+            const MarkerLayer(
               markers: [
                 Marker(
-                  point: const LatLng(28.6139, 77.2090), // Delhi
+                  point: LatLng(28.6139, 77.2090), // Delhi
                   width: 40,
                   height: 40,
-                  child: const Icon(Icons.location_on, color: Colors.red, size: 40),
+                  child: Icon(Icons.location_on, color: Colors.red, size: 40),
                 ),
                 Marker(
-                  point: const LatLng(19.0760, 72.8777), // Mumbai
+                  point: LatLng(19.0760, 72.8777), // Mumbai
                   width: 40,
                   height: 40,
-                  child: const Icon(Icons.location_on, color: Colors.blue, size: 40),
+                  child: Icon(Icons.location_on, color: Colors.blue, size: 40),
                 ),
               ],
             ),
@@ -245,7 +252,7 @@ class NationalDashboardScreen extends StatelessWidget {
     // Mock data for top states
     final states = ['Kerala', 'Punjab', 'Maharashtra'];
     final grades = ['Daksh', 'Utkarsh', 'Uttam'];
-    
+
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -258,7 +265,8 @@ class NationalDashboardScreen extends StatelessWidget {
               backgroundColor: Colors.indigo[100],
               child: Text('${index + 1}'),
             ),
-            title: Text(states[index], style: const TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(states[index],
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             trailing: Chip(
               label: Text(grades[index]),
               backgroundColor: Colors.indigo[50],

@@ -24,7 +24,9 @@ class PgiReportScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               Chip(
-                label: Text(pgiScore.grade, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                label: Text(pgiScore.grade,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white)),
                 backgroundColor: _getGradeColor(pgiScore.totalScore),
               ),
             ],
@@ -37,13 +39,23 @@ class PgiReportScreen extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             'Total Score: ${pgiScore.totalScore.toInt()} / 1000',
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+            style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple),
           ),
           const SizedBox(height: 24),
-          _buildDomainCard('Learning Outcomes', pgiScore.learningOutcomes, 180, Colors.blue),
-          _buildDomainCard('Access & Equity', pgiScore.access + pgiScore.equity, 310, Colors.orange), // Combined for simplicity here, or separate them
-          _buildDomainCard('Infrastructure & Facilities', pgiScore.infrastructure, 150, Colors.purple),
-          _buildDomainCard('Governance Processes', pgiScore.governanceProcess, 360, Colors.teal),
+          _buildDomainCard(
+              'Learning Outcomes', pgiScore.learningOutcomes, 180, Colors.blue),
+          _buildDomainCard(
+              'Access & Equity',
+              pgiScore.access + pgiScore.equity,
+              310,
+              Colors.orange), // Combined for simplicity here, or separate them
+          _buildDomainCard('Infrastructure & Facilities',
+              pgiScore.infrastructure, 150, Colors.purple),
+          _buildDomainCard('Governance Processes', pgiScore.governanceProcess,
+              360, Colors.teal),
         ],
       ),
     );
@@ -56,7 +68,8 @@ class PgiReportScreen extends StatelessWidget {
     return Colors.red;
   }
 
-  Widget _buildDomainCard(String title, double score, double maxScore, Color color) {
+  Widget _buildDomainCard(
+      String title, double score, double maxScore, Color color) {
     final double percentage = score / maxScore;
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -70,7 +83,8 @@ class PgiReportScreen extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   '${score.toInt()} / ${maxScore.toInt()}',
@@ -81,7 +95,7 @@ class PgiReportScreen extends StatelessWidget {
             const SizedBox(height: 12),
             LinearProgressIndicator(
               value: percentage,
-              backgroundColor: color.withOpacity(0.2),
+              backgroundColor: color.withValues(alpha: 0.2),
               color: color,
               minHeight: 8,
             ),

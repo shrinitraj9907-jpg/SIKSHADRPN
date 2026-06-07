@@ -67,7 +67,7 @@ class RootAuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-      stream: AuthService().authStateChanges,
+      stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         // ── Still waiting for the first auth event ────────────────────────────
         if (snapshot.connectionState == ConnectionState.waiting) {

@@ -14,7 +14,7 @@ class _SubmitComplaintScreenState extends State<SubmitComplaintScreen> {
   bool _isAnonymous = true;
   bool _isLoading = false;
   String _selectedCategory = 'Infrastructure (Toilets/Labs)';
-  
+
   final TextEditingController _udiseController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
 
@@ -112,7 +112,7 @@ class _SubmitComplaintScreenState extends State<SubmitComplaintScreen> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
-              value: _selectedCategory,
+              initialValue: _selectedCategory,
               decoration: const InputDecoration(
                 labelText: 'Complaint Category',
                 border: OutlineInputBorder(),
@@ -137,9 +137,10 @@ class _SubmitComplaintScreenState extends State<SubmitComplaintScreen> {
             const SizedBox(height: 16),
             SwitchListTile(
               title: const Text('Submit Anonymously'),
-              subtitle: const Text('Your identity will be completely hidden from school officials.'),
+              subtitle: const Text(
+                  'Your identity will be completely hidden from school officials.'),
               value: _isAnonymous,
-              activeColor: Colors.red[800],
+              activeThumbColor: Colors.red[800],
               onChanged: (val) => setState(() => _isAnonymous = val),
             ),
             const SizedBox(height: 24),
@@ -148,8 +149,11 @@ class _SubmitComplaintScreenState extends State<SubmitComplaintScreen> {
               height: 50,
               child: ElevatedButton.icon(
                 onPressed: _isLoading ? null : _submit,
-                icon: _isLoading ? const CircularProgressIndicator(color: Colors.white) : const Icon(Icons.send),
-                label: Text(_isLoading ? 'Submitting...' : 'Submit Complaint', style: const TextStyle(fontSize: 18)),
+                icon: _isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Icon(Icons.send),
+                label: Text(_isLoading ? 'Submitting...' : 'Submit Complaint',
+                    style: const TextStyle(fontSize: 18)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red[800],
                   foregroundColor: Colors.white,

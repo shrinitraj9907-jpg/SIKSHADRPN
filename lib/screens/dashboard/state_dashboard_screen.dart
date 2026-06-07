@@ -22,7 +22,7 @@ class StateDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dbService = DatabaseService();
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Level 3: State Executive Dashboard'),
@@ -34,7 +34,8 @@ class StateDashboardScreen extends StatelessWidget {
             onPressed: () async {
               await dbService.seedMockPgiData();
               if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Seeded PGI Data!')));
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Seeded PGI Data!')));
               }
             },
           ),
@@ -53,35 +54,34 @@ class StateDashboardScreen extends StatelessWidget {
         ],
       ),
       body: StreamBuilder<List<PgiScoreModel>>(
-        stream: dbService.streamStateDistrictPgiScores(stateName),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final scores = snapshot.data ?? [];
-          
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeader(),
-                const SizedBox(height: 24),
-                _buildPgiOverview(scores),
-                const SizedBox(height: 24),
-                _buildEscalationAction(context),
-                const SizedBox(height: 24),
-                const Text(
-                  'District Performance Tracker',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-                _buildDistrictList(context, scores),
-              ],
-            ),
-          );
-        }
-      ),
+          stream: dbService.streamStateDistrictPgiScores(stateName),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            final scores = snapshot.data ?? [];
+
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(),
+                  const SizedBox(height: 24),
+                  _buildPgiOverview(scores),
+                  const SizedBox(height: 24),
+                  _buildEscalationAction(context),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'District Performance Tracker',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildDistrictList(context, scores),
+                ],
+              ),
+            );
+          }),
     );
   }
 
@@ -95,10 +95,10 @@ class StateDashboardScreen extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 30,
             backgroundColor: Colors.deepPurple,
-            child: const Icon(Icons.account_balance, size: 30, color: Colors.white),
+            child: Icon(Icons.account_balance, size: 30, color: Colors.white),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -107,7 +107,8 @@ class StateDashboardScreen extends StatelessWidget {
               children: [
                 Text(
                   'Welcome, $userName',
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   '$userRole | Govt. of $stateName',
@@ -130,7 +131,7 @@ class StateDashboardScreen extends StatelessWidget {
         ),
       );
     }
-    
+
     // Calculate state averages
     double totalLearning = 0, totalInfra = 0, totalGov = 0, totalOverall = 0;
     for (var s in scores) {
@@ -139,18 +140,23 @@ class StateDashboardScreen extends StatelessWidget {
       totalGov += s.governanceProcess;
       totalOverall += s.totalScore;
     }
-    
+
     int count = scores.length;
     double avgLearning = totalLearning / count;
     double avgInfra = totalInfra / count;
     double avgGov = totalGov / count;
     double avgOverall = totalOverall / count;
-    
+
     // Create a dummy model to calculate the overall grade easily
     final avgModel = PgiScoreModel(
-      districtId: 'AVG', stateId: stateName, year: 2026,
-      learningOutcomes: avgLearning, access: 0, infrastructure: 0, equity: 0, governanceProcess: 0
-    );
+        districtId: 'AVG',
+        stateId: stateName,
+        year: 2026,
+        learningOutcomes: avgLearning,
+        access: 0,
+        infrastructure: 0,
+        equity: 0,
+        governanceProcess: 0);
 
     return Card(
       elevation: 4,
@@ -162,7 +168,10 @@ class StateDashboardScreen extends StatelessWidget {
           children: [
             const Text(
               'State PGI Score (Overall)',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey),
             ),
             const SizedBox(height: 8),
             Row(
@@ -170,17 +179,22 @@ class StateDashboardScreen extends StatelessWidget {
               children: [
                 Text(
                   '${avgOverall.toInt()} / 1000',
-                  style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                  style: const TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     color: Colors.green[100],
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     'Grade: ${avgModel.grade}',
-                    style: TextStyle(color: Colors.green[800], fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Colors.green[800], fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -210,7 +224,8 @@ class StateDashboardScreen extends StatelessWidget {
   Widget _buildMiniStat(String label, String value) {
     return Column(
       children: [
-        Text(value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        Text(value,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
         Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12)),
       ],
     );
@@ -220,7 +235,7 @@ class StateDashboardScreen extends StatelessWidget {
     if (scores.isEmpty) {
       return const Text('No district data found.');
     }
-    
+
     // Sort descending by total score
     scores.sort((a, b) => b.totalScore.compareTo(a.totalScore));
 
@@ -230,7 +245,7 @@ class StateDashboardScreen extends StatelessWidget {
       itemCount: scores.length,
       itemBuilder: (context, index) {
         final score = scores[index];
-        
+
         return Card(
           margin: const EdgeInsets.only(bottom: 12),
           child: ListTile(
@@ -238,11 +253,16 @@ class StateDashboardScreen extends StatelessWidget {
               backgroundColor: Colors.deepPurple[100],
               child: Text('${index + 1}'),
             ),
-            title: Text(score.districtId, style: const TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: Text('Score: ${score.totalScore.toInt()} | Grade: ${score.grade}'),
+            title: Text(score.districtId,
+                style: const TextStyle(fontWeight: FontWeight.bold)),
+            subtitle: Text(
+                'Score: ${score.totalScore.toInt()} | Grade: ${score.grade}'),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => PgiReportScreen(pgiScore: score)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => PgiReportScreen(pgiScore: score)));
             },
           ),
         );
@@ -253,7 +273,11 @@ class StateDashboardScreen extends StatelessWidget {
   Widget _buildEscalationAction(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => const EscalationDashboardScreen(userLevel: AdministrativeLevel.state)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) => const EscalationDashboardScreen(
+                    userLevel: AdministrativeLevel.state)));
       },
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -270,8 +294,13 @@ class StateDashboardScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Escalation Inbox', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red[900])),
-                  const Text('Review unresolved district-level complaints.', style: TextStyle(color: Colors.grey)),
+                  Text('Escalation Inbox',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red[900])),
+                  const Text('Review unresolved district-level complaints.',
+                      style: TextStyle(color: Colors.grey)),
                 ],
               ),
             ),

@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.15),
+                    color: Colors.black.withValues(alpha: 0.15),
                     blurRadius: 10,
                     spreadRadius: 5,
                   ),
@@ -215,10 +215,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         isExpanded: true,
                         value: tempRole,
                         items: UserRole.values.map((role) {
-                          String roleText =
-                              role.toString().split('.').last;
-                          roleText = roleText[0].toUpperCase() +
-                              roleText.substring(1);
+                          String roleText = role.toString().split('.').last;
+                          roleText =
+                              roleText[0].toUpperCase() + roleText.substring(1);
                           return DropdownMenuItem(
                             value: role,
                             child: Text(
@@ -380,8 +379,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             isExpanded: true,
                             value: _selectedRole,
                             items: UserRole.values.map((role) {
-                              String roleText =
-                                  role.toString().split('.').last;
+                              String roleText = role.toString().split('.').last;
                               roleText = roleText[0].toUpperCase() +
                                   roleText.substring(1);
                               return DropdownMenuItem(
@@ -437,8 +435,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: double.infinity,
                         height: 50,
                         child: OutlinedButton.icon(
-                          onPressed:
-                              _isLoading ? null : _handleGoogleSignIn,
+                          onPressed: _isLoading ? null : _handleGoogleSignIn,
                           icon: Image.network(
                             'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg',
                             height: 24,
@@ -477,17 +474,16 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               onPressed: () {
                 setState(() {
-                  themeNotifier.value =
-                      themeNotifier.value == ThemeMode.light
-                          ? ThemeMode.dark
-                          : ThemeMode.light;
+                  themeNotifier.value = themeNotifier.value == ThemeMode.light
+                      ? ThemeMode.dark
+                      : ThemeMode.light;
                 });
               },
             ),
           ),
           if (_isLoading)
             Container(
-              color: Colors.black.withOpacity(0.35),
+              color: Colors.black.withValues(alpha: 0.35),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
