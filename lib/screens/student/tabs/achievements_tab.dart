@@ -113,7 +113,7 @@ class _TimelineCard extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           backgroundColor:
-                              StudentPanelTheme.indigo.withOpacity(0.12),
+                              StudentPanelTheme.indigo.withValues(alpha: 0.12),
                           child: Icon(
                             achievement.category.icon,
                             color: StudentPanelTheme.indigo,

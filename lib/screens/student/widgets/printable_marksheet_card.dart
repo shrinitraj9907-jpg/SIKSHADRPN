@@ -30,7 +30,7 @@ class PrintableMarksheetCard extends StatelessWidget {
         border: Border.all(color: StudentPanelTheme.indigoLight, width: 2),
         boxShadow: [
           BoxShadow(
-            color: StudentPanelTheme.indigo.withOpacity(0.12),
+            color: StudentPanelTheme.indigo.withValues(alpha: 0.12),
             blurRadius: 16,
             offset: const Offset(0, 6),
           ),
@@ -59,7 +59,8 @@ class PrintableMarksheetCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   'Official Marksheet — ${exam.name} ($year)',
-                  style: const TextStyle(color: Color(0xCCFFFFFF), fontSize: 13),
+                  style:
+                      const TextStyle(color: Color(0xCCFFFFFF), fontSize: 13),
                 ),
               ],
             ),
@@ -70,8 +71,10 @@ class PrintableMarksheetCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _infoRow('Student', student.name),
-                _infoRow('Class', 'Grade ${student.grade}${student.section.isNotEmpty ? ' • Sec ${student.section}' : ''}'),
-                _infoRow('Roll No.', student.rollNumber.isNotEmpty ? student.rollNumber : '—'),
+                _infoRow('Class',
+                    'Grade ${student.grade}${student.section.isNotEmpty ? ' • Sec ${student.section}' : ''}'),
+                _infoRow('Roll No.',
+                    student.rollNumber.isNotEmpty ? student.rollNumber : '—'),
                 _infoRow('APAAR ID', student.apaarId),
                 const Divider(height: 28),
                 Table(
@@ -85,7 +88,7 @@ class PrintableMarksheetCard extends StatelessWidget {
                   children: [
                     TableRow(
                       decoration: BoxDecoration(
-                        color: StudentPanelTheme.indigo.withOpacity(0.08),
+                        color: StudentPanelTheme.indigo.withValues(alpha: 0.08),
                       ),
                       children: _headerCells(
                         ['Subject', 'Obtained', 'Total', '%'],
@@ -149,8 +152,8 @@ class PrintableMarksheetCard extends StatelessWidget {
                               '${e.key}: ${e.value.toStringAsFixed(1)}%',
                               style: const TextStyle(fontSize: 11),
                             ),
-                            backgroundColor:
-                                StudentPanelTheme.indigoLight.withOpacity(0.5),
+                            backgroundColor: StudentPanelTheme.indigoLight
+                                .withValues(alpha: 0.5),
                           ),
                         )
                         .toList(),
@@ -237,10 +240,10 @@ class PrintableMarksheetCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
       decoration: BoxDecoration(
-        color: (color ?? StudentPanelTheme.indigo).withOpacity(0.1),
+        color: (color ?? StudentPanelTheme.indigo).withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: (color ?? StudentPanelTheme.indigo).withOpacity(0.3),
+          color: (color ?? StudentPanelTheme.indigo).withValues(alpha: 0.3),
         ),
       ),
       child: Column(

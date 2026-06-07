@@ -10,7 +10,8 @@ class TeacherStudentHubScreen extends StatelessWidget {
 
   final UserModel? teacher;
 
-  UserModel get _teacher => teacher ??
+  UserModel get _teacher =>
+      teacher ??
       UserModel(
         id: 'demo_teacher',
         name: 'Demo Teacher',
@@ -67,8 +68,7 @@ class TeacherStudentHubScreen extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) =>
-                    TeacherMarksEntryScreen(teacher: _teacher),
+                builder: (_) => TeacherMarksEntryScreen(teacher: _teacher),
               ),
             ),
           ),
@@ -97,8 +97,7 @@ class TeacherStudentHubScreen extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) =>
-                    TeacherAchievementScreen(teacher: _teacher),
+                builder: (_) => TeacherAchievementScreen(teacher: _teacher),
               ),
             ),
           ),
@@ -120,8 +119,8 @@ class TeacherStudentHubScreen extends StatelessWidget {
                         .map(
                           (s) => Chip(
                             label: Text(s),
-                            backgroundColor:
-                                StudentPanelTheme.indigoLight.withOpacity(0.5),
+                            backgroundColor: StudentPanelTheme.indigoLight
+                                .withValues(alpha: 0.5),
                           ),
                         )
                         .toList(),
@@ -152,7 +151,7 @@ class TeacherStudentHubScreen extends StatelessWidget {
           child: Row(
             children: [
               CircleAvatar(
-                backgroundColor: color.withOpacity(0.15),
+                backgroundColor: color.withValues(alpha: 0.15),
                 child: Icon(icon, color: color),
               ),
               const SizedBox(width: 16),

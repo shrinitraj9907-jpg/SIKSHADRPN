@@ -67,7 +67,7 @@ class PrincipalStudentBrowserScreen extends StatelessWidget {
                 child: ListTile(
                   leading: CircleAvatar(
                     backgroundColor:
-                        StudentPanelTheme.indigo.withOpacity(0.15),
+                        StudentPanelTheme.indigo.withValues(alpha: 0.15),
                     child: Text(
                       s.name.isNotEmpty ? s.name[0].toUpperCase() : '?',
                       style: const TextStyle(

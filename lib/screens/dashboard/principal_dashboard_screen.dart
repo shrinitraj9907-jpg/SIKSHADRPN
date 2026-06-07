@@ -83,7 +83,8 @@ class PrincipalDashboardScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 28,
-                backgroundColor: StudentPanelTheme.indigo.withOpacity(0.12),
+                backgroundColor:
+                    StudentPanelTheme.indigo.withValues(alpha: 0.12),
                 child: const Icon(
                   Icons.school,
                   color: StudentPanelTheme.indigo,

@@ -63,9 +63,8 @@ class _TeacherAchievementScreenState extends State<TeacherAchievementScreen> {
           date: _date,
           category: _category,
           description: _descCtrl.text.trim(),
-          photoUrl: _photoCtrl.text.trim().isEmpty
-              ? null
-              : _photoCtrl.text.trim(),
+          photoUrl:
+              _photoCtrl.text.trim().isEmpty ? null : _photoCtrl.text.trim(),
           addedByTeacherId: widget.teacher.id,
           addedByTeacherName: widget.teacher.name,
         ),
@@ -112,7 +111,7 @@ class _TeacherAchievementScreenState extends State<TeacherAchievementScreen> {
                   labelText: 'Student',
                   border: OutlineInputBorder(),
                 ),
-                value: _student,
+                initialValue: _student,
                 items: students
                     .map(
                       (s) => DropdownMenuItem(
@@ -139,7 +138,7 @@ class _TeacherAchievementScreenState extends State<TeacherAchievementScreen> {
               labelText: 'Category',
               border: OutlineInputBorder(),
             ),
-            value: _category,
+            initialValue: _category,
             items: AchievementCategory.values
                 .map(
                   (c) => DropdownMenuItem(
