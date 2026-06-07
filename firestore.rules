@@ -1,0 +1,135 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function userDoc() {
+      return exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data
+        : {};
+    }
+
+    function userRole() {
+      return userDoc().role;
+    }
+
+    function isTeacher() {
+      return isSignedIn() && userRole() == 'teacher';
+    }
+
+    function isPrincipal() {
+      return isSignedIn() && userRole() == 'principal';
+    }
+
+    function isStudentOrParent() {
+      return isSignedIn() && (userRole() == 'student' || userRole() == 'parent');
+    }
+
+    function linkedStudentId() {
+      return userDoc().linkedStudentId;
+    }
+
+    function teacherAssignedSubjects() {
+      return userDoc().assignedSubjects;
+    }
+
+    function teacherOwnsSubject(subjectData) {
+      return isTeacher()
+        && subjectData.teacherId == request.auth.uid
+        && subjectData.subjectName in teacherAssignedSubjects();
+    }
+
+    function canReadStudent(studentId) {
+      return isPrincipal()
+        || (isStudentOrParent() && linkedStudentId() == studentId)
+        || isTeacher()
+        || isSignedIn();
+    }
+
+    // ── Users ──────────────────────────────────────────────────────────────
+    match /users/{userId} {
+      allow read: if isSignedIn() && request.auth.uid == userId;
+      allow write: if isSignedIn() && request.auth.uid == userId;
+    }
+
+    // ── Students root profile ────────────────────────────────────────────────
+    match /students/{studentId} {
+      allow read: if canReadStudent(studentId);
+      allow create, update: if isPrincipal() || isTeacher();
+      allow delete: if isPrincipal();
+
+      // ── Exams ──────────────────────────────────────────────────────────────
+      match /exams/{examId} {
+        allow read: if canReadStudent(studentId);
+        allow write: if isPrincipal() || isTeacher();
+
+        // ── Subject marks ──────────────────────────────────────────────────
+        match /subjects/{subjectId} {
+          allow read: if canReadStudent(studentId);
+
+          allow create: if isPrincipal()
+            || (isTeacher()
+              && request.resource.data.teacherId == request.auth.uid
+              && request.resource.data.subjectName in teacherAssignedSubjects());
+
+          allow update: if isPrincipal()
+            || (isTeacher()
+              && resource.data.teacherId == request.auth.uid
+              && request.resource.data.teacherId == request.auth.uid
+              && request.resource.data.subjectName in teacherAssignedSubjects()
+              && request.resource.data.subjectName == resource.data.subjectName);
+
+          allow delete: if isPrincipal();
+        }
+      }
+
+      // ── Monthly attendance ───────────────────────────────────────────────
+      match /attendance/{monthId} {
+        allow read: if canReadStudent(studentId);
+        allow write: if isPrincipal() || isTeacher();
+      }
+
+      // ── Achievements ─────────────────────────────────────────────────────
+      match /achievements/{achievementId} {
+        allow read: if canReadStudent(studentId);
+        allow create: if isPrincipal()
+          || (isTeacher()
+            && request.resource.data.addedByTeacherId == request.auth.uid);
+        allow update, delete: if isPrincipal()
+          || (isTeacher()
+            && resource.data.addedByTeacherId == request.auth.uid);
+      }
+    }
+
+    // ── Legacy collections ─────────────────────────────────────────────────
+    match /complaints/{docId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /attendance/{docId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /lesson_logs/{docId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /teacher_ratings/{docId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /pgi_scores/{docId} {
+      allow read: if isSignedIn();
+      allow write: if isPrincipal();
+    }
+
+    match /assessments/{docId} {
+      allow read: if isSignedIn();
+      allow write: if isPrincipal();
+    }
+  }
+}

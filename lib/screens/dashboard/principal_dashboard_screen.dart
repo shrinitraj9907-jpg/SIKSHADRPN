@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shiksha_darpan/screens/auth/login_screen.dart';
+import 'package:shiksha_darpan/screens/student/principal_student_browser_screen.dart';
 import 'package:shiksha_darpan/services/auth_service.dart';
+import 'package:shiksha_darpan/theme/student_panel_theme.dart';
 
 class PrincipalDashboardScreen extends StatelessWidget {
   const PrincipalDashboardScreen({Key? key}) : super(key: key);
@@ -41,6 +43,8 @@ class PrincipalDashboardScreen extends StatelessWidget {
               style: TextStyle(fontSize: 16, color: Colors.blueGrey[600]),
             ),
             const SizedBox(height: 24),
+            _buildStudentPanelAccess(context),
+            const SizedBox(height: 24),
             _buildSchoolStats(),
             const SizedBox(height: 32),
             const Text(
@@ -57,6 +61,58 @@ class PrincipalDashboardScreen extends StatelessWidget {
             const SizedBox(height: 16),
             _buildTeacherAttendance(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStudentPanelAccess(BuildContext context) {
+    return Card(
+      elevation: 3,
+      child: InkWell(
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const PrincipalStudentBrowserScreen(),
+          ),
+        ),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 28,
+                backgroundColor: StudentPanelTheme.indigo.withOpacity(0.12),
+                child: const Icon(
+                  Icons.school,
+                  color: StudentPanelTheme.indigo,
+                  size: 30,
+                ),
+              ),
+              const SizedBox(width: 16),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Student Panel Records',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'View marksheets, attendance & achievements for all students',
+                      style: TextStyle(fontSize: 13, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios, size: 16),
+            ],
+          ),
         ),
       ),
     );

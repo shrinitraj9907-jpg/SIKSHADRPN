@@ -6,6 +6,10 @@ enum AdministrativeLevel {
 }
 
 enum UserRole {
+  // Student / Parent
+  student,
+  parent,
+
   // Ground Level
   supportStaff,
   teacher,
@@ -37,6 +41,8 @@ class UserModel {
   final String? assignedJurisdictionId;
   final String email;
   final String phone;
+  final String? linkedStudentId;
+  final List<String> assignedSubjects;
 
   UserModel({
     required this.id,
@@ -46,6 +52,8 @@ class UserModel {
     this.assignedJurisdictionId,
     required this.email,
     required this.phone,
+    this.linkedStudentId,
+    this.assignedSubjects = const [],
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -61,6 +69,11 @@ class UserModel {
       assignedJurisdictionId: json['assignedJurisdictionId'],
       email: json['email'],
       phone: json['phone'],
+      linkedStudentId: json['linkedStudentId'],
+      assignedSubjects: (json['assignedSubjects'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          const [],
     );
   }
 
@@ -73,6 +86,18 @@ class UserModel {
       'assignedJurisdictionId': assignedJurisdictionId,
       'email': email,
       'phone': phone,
+      'linkedStudentId': linkedStudentId,
+      'assignedSubjects': assignedSubjects,
     };
   }
+
+  bool get isStudentOrParent =>
+      role == UserRole.student || role == UserRole.parent;
+
+  bool canEditSubject(String subjectKey) =>
+      role == UserRole.principal ||
+      (role == UserRole.teacher &&
+          assignedSubjects
+              .map((s) => s.toLowerCase())
+              .contains(subjectKey.toLowerCase()));
 }

@@ -5,9 +5,16 @@ import 'package:shiksha_darpan/models/lesson_log_model.dart';
 import 'package:shiksha_darpan/models/teacher_rating_model.dart';
 import 'package:shiksha_darpan/models/pgi_model.dart';
 import 'package:shiksha_darpan/models/assessment_model.dart';
+import 'package:shiksha_darpan/models/achievement_model.dart';
+import 'package:shiksha_darpan/models/exam_model.dart';
+import 'package:shiksha_darpan/models/student_attendance_model.dart';
+import 'package:shiksha_darpan/models/student_model.dart';
+import 'package:shiksha_darpan/models/subject_mark_model.dart';
+import 'package:shiksha_darpan/services/student_panel_service.dart';
 
 class DatabaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final StudentPanelService _studentPanel = StudentPanelService();
 
   // --- COMPLAINTS & ESCALATIONS ---
   
@@ -111,6 +118,50 @@ class DatabaseService {
       throw Exception('Failed to create user profile: $e');
     }
   }
+
+  // --- STUDENT PANEL (delegates to StudentPanelService) ---
+
+  Future<StudentModel?> getStudent(String studentId) =>
+      _studentPanel.getStudent(studentId);
+
+  Stream<StudentModel?> streamStudent(String studentId) =>
+      _studentPanel.streamStudent(studentId);
+
+  Stream<List<ExamModel>> streamStudentExams(String studentId, {int? year}) =>
+      _studentPanel.streamExams(studentId, year: year);
+
+  Stream<List<SubjectMarkModel>> streamExamSubjectMarks(
+    String studentId,
+    String examId,
+  ) =>
+      _studentPanel.streamExamSubjects(studentId, examId);
+
+  Future<void> upsertSubjectMark({
+    required String studentId,
+    required String examId,
+    required SubjectMarkModel mark,
+  }) =>
+      _studentPanel.upsertSubjectMark(
+        studentId: studentId,
+        examId: examId,
+        mark: mark,
+      );
+
+  Stream<StudentMonthlyAttendanceModel?> streamStudentMonthlyAttendance(
+    String studentId,
+    int year,
+    int month,
+  ) =>
+      _studentPanel.streamMonthlyAttendance(studentId, year, month);
+
+  Stream<List<AchievementModel>> streamStudentAchievements(String studentId) =>
+      _studentPanel.streamAchievements(studentId);
+
+  Future<void> addStudentAchievement(AchievementModel achievement) =>
+      _studentPanel.addAchievement(achievement);
+
+  Future<void> seedDemoStudentData(String studentId) =>
+      _studentPanel.seedDemoStudentData(studentId);
 
   // --- ATTENDANCE (Teacher Check-in) ---
 
