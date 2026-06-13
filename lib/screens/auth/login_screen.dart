@@ -8,9 +8,7 @@ import 'package:shiksha_darpan/screens/dashboard/principal_dashboard_screen.dart
 import 'package:shiksha_darpan/models/user_model.dart';
 import 'package:shiksha_darpan/main.dart';
 import 'package:shiksha_darpan/services/auth_service.dart';
-import 'package:shiksha_darpan/screens/student/student_panel_screen.dart';
 import 'package:shiksha_darpan/services/database_service.dart';
-import 'package:shiksha_darpan/services/student_panel_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -35,9 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   AdministrativeLevel _getLevelForRole(UserRole role) {
     switch (role) {
-      case UserRole.student:
-      case UserRole.parent:
-        return AdministrativeLevel.ground;
       case UserRole.supportStaff:
       case UserRole.teacher:
       case UserRole.principal:
@@ -59,18 +54,10 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void _routeUserByRoleAndLevel(
-    UserRole role,
-    AdministrativeLevel level, {
-    UserModel? profile,
-  }) {
+  void _routeUserByRoleAndLevel(UserRole role, AdministrativeLevel level) {
     Widget destination;
 
-    if (role == UserRole.student || role == UserRole.parent) {
-      final studentId = profile?.linkedStudentId ?? 'demo_student_001';
-      StudentPanelService().seedDemoStudentData(studentId);
-      destination = StudentPanelScreen(studentId: studentId);
-    } else if (role == UserRole.principal) {
+    if (role == UserRole.principal) {
       destination = const PrincipalDashboardScreen();
     } else {
       switch (level) {
@@ -109,10 +96,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     final level = _getLevelForRole(_selectedRole);
-    if (_selectedRole == UserRole.student ||
-        _selectedRole == UserRole.parent) {
-      StudentPanelService().seedDemoStudentData('demo_student_001');
-    }
     _routeUserByRoleAndLevel(_selectedRole, level);
   }
 
@@ -133,11 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (profile == null) {
         _showRoleSelectionBottomSheet(user);
       } else {
-        _routeUserByRoleAndLevel(
-          profile.role,
-          profile.level,
-          profile: profile,
-        );
+        _routeUserByRoleAndLevel(profile.role, profile.level);
       }
     } catch (e) {
       if (mounted) {
@@ -276,19 +255,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             level: _getLevelForRole(tempRole),
                             email: firebaseUser.email ?? '',
                             phone: firebaseUser.phoneNumber ?? '',
-                            linkedStudentId:
-                                (tempRole == UserRole.student ||
-                                        tempRole == UserRole.parent)
-                                    ? 'demo_student_001'
-                                    : null,
-                            assignedSubjects:
-                                tempRole == UserRole.teacher
-                                    ? const [
-                                        'Mathematics',
-                                        'Science',
-                                        'English',
-                                      ]
-                                    : const [],
                           );
 
                           await _dbService.createUserProfile(newProfile);
@@ -297,7 +263,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           _routeUserByRoleAndLevel(
                             newProfile.role,
                             newProfile.level,
-                            profile: newProfile,
                           );
                         } catch (e) {
                           if (mounted) {
