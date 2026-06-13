@@ -33,7 +33,8 @@ class _TeacherMarksEntryScreenState extends State<TeacherMarksEntryScreen> {
       ? widget.teacher.assignedSubjects
       : ['Mathematics', 'Science', 'English', 'Hindi', 'Social Studies'];
 
-  String _subjectId(String name) => name.toLowerCase().replaceAll(' ', '_');
+  String _subjectId(String name) =>
+      name.toLowerCase().replaceAll(' ', '_');
 
   @override
   void dispose() {
@@ -127,10 +128,9 @@ class _TeacherMarksEntryScreenState extends State<TeacherMarksEntryScreen> {
                     spacing: 6,
                     children: _subjects
                         .map((s) => Chip(
-                              label:
-                                  Text(s, style: const TextStyle(fontSize: 12)),
-                              backgroundColor: StudentPanelTheme.indigoLight
-                                  .withValues(alpha: 0.4),
+                              label: Text(s, style: const TextStyle(fontSize: 12)),
+                              backgroundColor:
+                                  StudentPanelTheme.indigoLight.withOpacity(0.4),
                             ))
                         .toList(),
                   ),
@@ -153,7 +153,7 @@ class _TeacherMarksEntryScreenState extends State<TeacherMarksEntryScreen> {
                   labelText: 'Student',
                   border: OutlineInputBorder(),
                 ),
-                initialValue: _student,
+                value: _student,
                 items: students
                     .map(
                       (s) => DropdownMenuItem(
@@ -217,7 +217,7 @@ class _TeacherMarksEntryScreenState extends State<TeacherMarksEntryScreen> {
                     labelText: 'Exam',
                     border: OutlineInputBorder(),
                   ),
-                  initialValue: _exam,
+                  value: _exam,
                   items: defaultExams
                       .map(
                         (e) => DropdownMenuItem(
@@ -236,7 +236,7 @@ class _TeacherMarksEntryScreenState extends State<TeacherMarksEntryScreen> {
               labelText: 'Subject (your assignment)',
               border: OutlineInputBorder(),
             ),
-            initialValue: _subjectKey,
+            value: _subjectKey,
             items: _subjects
                 .map(
                   (s) => DropdownMenuItem(value: s, child: Text(s)),
