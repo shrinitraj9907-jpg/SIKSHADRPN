@@ -16,7 +16,10 @@ analyzer:
     - windows/**
     - macos/**
     - linux/**
+<<<<<<< HEAD
     - PRO.DRPN/**
+=======
+>>>>>>> 970c3d81af660216f29a44e9887f98d449bafa3a
 include: package:flutter_lints/flutter.yaml
 
 linter:
