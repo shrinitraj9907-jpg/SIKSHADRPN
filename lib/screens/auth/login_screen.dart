@@ -1,3 +1,4 @@
+// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shiksha_darpan/screens/attendance/teacher_dashboard_screen.dart';
@@ -245,6 +246,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pop(context);
 
                         setState(() => _isLoading = true);
+                        // Capture messenger before async gap
+                        final messenger = ScaffoldMessenger.of(context);
                         try {
                           final newProfile = UserModel(
                             id: firebaseUser.uid,
@@ -265,13 +268,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             newProfile.level,
                           );
                         } catch (e) {
-                          if (mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Failed to save profile: $e'),
-                              ),
-                            );
-                          }
+                          messenger.showSnackBar(
+                            SnackBar(
+                              content: Text('Failed to save profile: $e'),
+                            ),
+                          );
                         } finally {
                           if (mounted) {
                             setState(() => _isLoading = false);

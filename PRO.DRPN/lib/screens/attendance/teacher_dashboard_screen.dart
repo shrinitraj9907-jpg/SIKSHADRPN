@@ -1,3 +1,4 @@
+// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:shiksha_darpan/screens/attendance/teacher_checkin_screen.dart';
 import 'package:shiksha_darpan/screens/attendance/lesson_logs_screen.dart';
